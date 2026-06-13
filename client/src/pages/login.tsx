@@ -8,7 +8,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/hooks/use-toast";
-import { Heart, Shield, Smartphone, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { Shield, Smartphone, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -18,6 +18,7 @@ export default function Login() {
   const [step, setStep] = useState<Step>("abha");
   const [abhaId, setAbhaId] = useState("");
   const [otp, setOtp] = useState("");
+  const [generatedOtp, setGeneratedOtp] = useState("");
   const [sessionId, setSessionId] = useState("");
   const { login } = useAuth();
   const { toast } = useToast();
@@ -30,6 +31,7 @@ export default function Login() {
     },
     onSuccess: (data) => {
       setSessionId(data.sessionId);
+      setGeneratedOtp(data.otp);
       toast({
         title: "OTP Sent",
         description: `A 6-digit OTP has been sent to your registered mobile. Demo OTP: ${data.otp}`,
@@ -84,9 +86,7 @@ export default function Login() {
     <div className="min-h-screen bg-background flex flex-col">
       <header className="flex items-center justify-between p-4 border-b">
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-            <Heart className="h-6 w-6 text-primary-foreground" />
-          </div>
+          <img src="/logo.svg" alt="AayuSync logo" className="h-10 w-10 rounded-lg object-contain" />
           <span className="text-xl font-semibold">AayuSync</span>
         </div>
         <ThemeToggle />
@@ -155,6 +155,12 @@ export default function Login() {
                       <Smartphone className="h-5 w-5 text-muted-foreground" />
                       <span className="text-sm">OTP sent to registered mobile</span>
                     </div>
+                    {generatedOtp && (
+                      <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-center">
+                        <p className="text-xs uppercase tracking-wide text-muted-foreground">Demo OTP</p>
+                        <p className="text-2xl font-semibold tracking-[0.3em] text-primary">{generatedOtp}</p>
+                      </div>
+                    )}
                     <div className="flex justify-center">
                       <InputOTP
                         maxLength={6}

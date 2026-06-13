@@ -12,7 +12,6 @@ import { SosButton } from "@/components/sos-button";
 import { QrCodeDialog } from "@/components/qr-code-dialog";
 import type { MedicalRecord } from "@shared/schema";
 import {
-  Heart,
   FileText,
   Pill,
   Calendar,
@@ -74,9 +73,7 @@ export default function Dashboard() {
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex items-center justify-between p-4 max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <Heart className="h-6 w-6 text-primary-foreground" />
-            </div>
+            <img src="/logo.svg" alt="AayuSync logo" className="h-10 w-10 rounded-lg object-contain" />
             <span className="text-xl font-semibold">AayuSync</span>
           </div>
           <div className="flex items-center gap-2">
